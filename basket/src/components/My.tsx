@@ -1,14 +1,7 @@
 import { useState } from 'react';
 import { Profile } from './Profile';
 import { Login } from './Login';
-
-type Session = {
-  loginUser: {
-    id: number;
-    name: string;
-  };
-  cart: Array<{ id: number; name: string; price: number }>;
-};
+import { Session } from '../types';
 
 type MyProps = {
   session: Session;
@@ -19,14 +12,21 @@ type MyProps = {
 export const My = ({ session, login, logout }: MyProps) => {
   const [inputValue, setInputValue] = useState('');
 
+  const isAuthenticated =
+    session.loginUser.id !== 0 && session.loginUser.name !== '';
+
   return (
     <>
       <div>My</div>
-      {session.loginUser.id !== 0 && session.loginUser.name !== '' ? (
+      {isAuthenticated ? (
         <Profile session={session} logout={logout} />
       ) : (
-        <Login login={login} inputValue={inputValue} setInputValue={setInputValue} />
+        <Login
+          login={login}
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+        />
       )}
     </>
   );
-}
+};

@@ -1,10 +1,5 @@
-type Session = {
-  loginUser: {
-    id: number;
-    name: string;
-  };
-  cart: Array<{ id: number; name: string; price: number }>;
-};
+import { Session } from '../types';
+import CartList from './CartList';
 
 type MyProps = {
   session: Session;
@@ -12,17 +7,16 @@ type MyProps = {
 };
 
 export const Profile = ({ session, logout }: MyProps) => {
+  const { loginUser, cart } = session;
   return (
-    <div>
-      <p>Logged in as: {session.loginUser.name} ({session.loginUser.id})</p>
-      <ul>
-        {session.cart.map((ele) => (
-          <li style={{listStyle: 'none'}} key={ele.id}>
-            <strong>{ele.name}</strong>
-            <span>{ele.price}</span>
-          </li>))}
-      </ul>
-      <button onClick={logout}>Logout</button>
-    </div>
+    <>
+      <p>
+        Logged in as: {loginUser.name} ({loginUser.id})
+      </p>
+      <CartList item={cart} />
+      <button type='button' onClick={logout}>
+        Logout
+      </button>
+    </>
   );
-}
+};
