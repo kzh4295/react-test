@@ -9,7 +9,7 @@ function CartList({ item }: CartListProps) {
   return (
     <ul>
       {item.map(({ id, name, price }) => (
-         <CartItem id={id} name={name} price={price} />
+         <CartItem key={id} name={name} price={price} />
         
       ))}
     </ul>

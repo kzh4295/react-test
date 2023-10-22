@@ -2,9 +2,9 @@ import { Cart } from '../types';
 
 type CartItemProps = Cart;
 
-function CartItem({ id, name, price }: CartItemProps) {
+function CartItem({ name, price }: CartItemProps) {
   return (
-    <li style={{ listStyle: 'none' }} key={id}>
+    <li style={{ listStyle: 'none' }}>
       <strong>{name}</strong>
       <span>{price}</span>
     </li>

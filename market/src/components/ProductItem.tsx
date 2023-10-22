@@ -1,12 +1,12 @@
-import { product } from '../types';
+import { Product } from '../types';
 
-type ProductItemProps = product;
+type ProductItemProps = Product;
 
 function ProductItem(product: ProductItemProps) {
-  const { id, image, title, price, description } = product;
+  const { image, title, price, description } = product;
 
   return (
-    <li key={id} style={{ display: 'flex', padding: '10px' }}>
+    <li style={{ display: 'flex', padding: '10px' }}>
       <img src={image} alt={title} width='100' />
       <h3>{title}</h3>
       <p>가격: ${price}</p>
