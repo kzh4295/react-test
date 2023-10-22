@@ -1,17 +1,16 @@
-import { Session } from '../types';
+import { Cart } from '../types';
+import CartItem from './CartItem';
 
-type CartProps = {
-  item: Session['cart'];
+type CartListProps = {
+  item: Cart[];
 };
 
-function CartList({item}:CartProps) {
+function CartList({ item }: CartListProps) {
   return (
     <ul>
       {item.map(({ id, name, price }) => (
-        <li style={{ listStyle: 'none' }} key={id}>
-          <strong>{name}</strong>
-          <span>{price}</span>
-        </li>
+         <CartItem id={id} name={name} price={price} />
+        
       ))}
     </ul>
   );

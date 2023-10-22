@@ -1,19 +1,15 @@
-import { Product } from '../App';
+import ProductItem from './ProductItem';
+import { product } from '../types';
 
-interface productProps {
-  products: Product[];
+interface ProductListProps {
+  products: product[];
 }
 
-function ProductList({ products }: productProps) {
+function ProductList({ products }: ProductListProps) {
   return (
     <ul>
-      {products.map(({ id, image, title, price, description }) => (
-        <li key={id} style={{ display: 'flex', padding: '10px' }}>
-          <img src={image} alt={title} width='100' />
-          <h3>{title}</h3>
-          <p>가격: ${price}</p>
-          <p>{description}</p>
-        </li>
+      {products.map((product) => (
+        <ProductItem key={product.id} {...product} />
       ))}
     </ul>
   );

@@ -4,8 +4,8 @@ export type User = {
 };
 
 export type Cart = {
-  id: number;
-  name: string;
+  id: User['id'];
+  name: User['name'];
   price: number;
 };
 

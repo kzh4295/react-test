@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductList from './components/ProductList';
+import { product } from './types';
 
-export interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-} 
 
-function App() {
-  const [products, setProducts] = useState<Product[]>([]);
+function useProducts() {
+  const [data, setData] = useState<product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -20,10 +13,11 @@ function App() {
     async function fetchProducts() {
       try {
         const { data } = await axios.get('https://fakestoreapi.com/products');
-        setProducts(data);
-        setLoading(false);
-      } catch (error:any) {
-        setError(error);
+        setData(data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err);
+        }
       } finally {
         setLoading(false);
       }
@@ -32,15 +26,21 @@ function App() {
     fetchProducts();
   }, []);
 
+  return { data, loading, error };
+}
+
+function App() {
+  const { data, loading, error } = useProducts();
+
   return (
     <div className='App'>
       <h1>장보기 어플</h1>
       {loading ? (
         <p>Loading…</p>
       ) : error ? (
-        <p>Error: {error.message}</p> // 에러 메시지 표시
+        <p>Error: {error.message}</p>
       ) : (
-        <ProductList products={products} />
+        <ProductList products={data} />
       )}
     </div>
   );
